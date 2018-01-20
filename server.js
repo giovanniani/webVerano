@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : 'root',
-    database : 'registro'
+    database : 'servicioexcursiones'
 });
 
 connection.connect(function(error) {
@@ -37,11 +37,11 @@ app.get('/home', function(req, resp) {
 })
 
 
-app.get('/insert/:id/:nombre', function (req, resp) {
+app.get('/insertVehiculo/:placa/:marca/:tipo/:capacidad/:cedula', function (req, resp) {
     resp.header("Access-Control-Allow-Origin", "*");
     resp.header("Access-Control-Allow-Headers", "X-Requested-With");
-    console.log(req.params.id);
-    connection.query('CALL agregarDepartamento(?,?)', [req.params.id,req.params.nombre], function(err, rows) {
+    connection.query('CALL uspInsertarVehiculo(?,?,?,?,?)', [req.params.placa,req.params.marca,req.params.tipo,
+        req.params.capacidad,req.params.cedula], function(err, rows) {
         if (err) throw err;
         resp.json(rows[0]);
     });

@@ -42,6 +42,8 @@ myevents.controller('formCtrl', function($scope, $http) {
     	console.log($scope.user.lastName);
         $http.get('http://localhost:3000/insert/'+$scope.user.firstName+'/'+$scope.user.lastName)
         .success(function (data) {
+          $scope.user.firstName = "";
+          $scope.user.lastName = "";
         });
     };
 });
