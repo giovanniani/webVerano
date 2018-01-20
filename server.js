@@ -48,5 +48,24 @@ app.get('/insertVehiculo/:placa/:marca/:tipo/:capacidad/:cedula', function (req,
 
 });
 
+app.get('/insertCategoria/:nombre', function (req, resp) {
+    resp.header("Access-Control-Allow-Origin", "*");
+    resp.header("Access-Control-Allow-Headers", "X-Requested-With");
+    connection.query('CALL uspInsertarVehiculo(?)', [req.params.nombre], function(err, rows) {
+        if (err) throw err;
+        resp.json(rows[0]);
+    });
+
+});
+
+app.get('/getCategoria/', function (req, resp) {
+    resp.header("Access-Control-Allow-Origin", "*");
+    resp.header("Access-Control-Allow-Headers", "X-Requested-With");
+    connection.query('CALL uspVerCategorias()', function(err, rows) {
+        if (err) throw err;
+        resp.json(rows[0]);
+    });
+
+});
 
 app.listen(3000);
