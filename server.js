@@ -10,7 +10,7 @@ var allowCrossDomain = function(req, res, next) {
 }
     
 var connection = mysql.createConnection({
-    host     : 'localhost',
+    host     : 'http://192.168.0.20',
     user     : 'root',
     password : 'root',
     database : 'servicioexcursiones'
@@ -23,19 +23,6 @@ connection.connect(function(error) {
 		console.log("connected");
 	}
 });
-
-app.get('/home', function(req, resp) {
-    resp.header("Access-Control-Allow-Origin", "*");
-    resp.header("Access-Control-Allow-Headers", "X-Requested-With");
-	connection.query('CALL getDepatramentos()', function(error, rows,fields){
-        if (!!error) {
-            console.log("error");
-        } else {
-            resp.json(rows[0]); 
-        }
-    });
-})
-
 
 app.get('/insertVehiculo/:placa/:marca/:tipo/:capacidad/:cedula', function (req, resp) {
     resp.header("Access-Control-Allow-Origin", "*");
@@ -83,6 +70,16 @@ app.get('/getMarcasVehiculo/', function (req, resp) {
     resp.header("Access-Control-Allow-Origin", "*");
     resp.header("Access-Control-Allow-Headers", "X-Requested-With");
     connection.query('CALL uspVerMarcas()', function(err, rows) {
+        if (err) throw err;
+        resp.json(rows[0]);
+    });
+
+});
+
+app.get('/agregarDestino /', function (req, resp) {
+    resp.header("Access-Control-Allow-Origin", "*");
+    resp.header("Access-Control-Allow-Headers", "X-Requested-With");
+    connection.query('CALL uspInsertarDestino(?,?,?,?)', function(err, rows) {
         if (err) throw err;
         resp.json(rows[0]);
     });
