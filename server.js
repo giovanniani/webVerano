@@ -79,4 +79,13 @@ app.get('/getTipoVehiculo/', function (req, resp) {
 
 });
 
+app.get('/getMarcasVehiculo/', function (req, resp) {
+    resp.header("Access-Control-Allow-Origin", "*");
+    resp.header("Access-Control-Allow-Headers", "X-Requested-With");
+    connection.query('CALL uspVerMarcas()', function(err, rows) {
+        if (err) throw err;
+        resp.json(rows[0]);
+    });
+
+});
 app.listen(3000);
