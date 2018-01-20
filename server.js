@@ -76,10 +76,11 @@ app.get('/getMarcasVehiculo/', function (req, resp) {
 
 });
 
-app.get('/agregarDestino/', function (req, resp) {
+app.get('/agregarDestino/:nombre/:lugar/:categoria/:descripcion/:', function (req, resp) {
     resp.header("Access-Control-Allow-Origin", "*");
     resp.header("Access-Control-Allow-Headers", "X-Requested-With");
-    connection.query('CALL uspInsertarDestino(?,?,?,?)', function(err, rows) {
+    connection.query('CALL uspInsertarDestino(?,?,?,?)', [req.params.nombre,req.params.lugar,
+        req.params.categoria,req.params.descripcion], function(err, rows) {
         if (err) throw err;
         resp.json(rows[0]);
     });
