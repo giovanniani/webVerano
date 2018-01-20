@@ -37,20 +37,11 @@ app.get('/home', function(req, resp) {
 })
 
 
-/*app.get('/insertVehiculo/:placa/:marca/:tipo/:capacidad/:cedula', function (req, resp) {
+app.get('/insertVehiculo/:placa/:marca/:tipo/:capacidad/:cedula', function (req, resp) {
     resp.header("Access-Control-Allow-Origin", "*");
     resp.header("Access-Control-Allow-Headers", "X-Requested-With");
     connection.query('CALL uspInsertarVehiculo(?,?,?,?,?)', [req.params.placa,req.params.marca,req.params.tipo,
         req.params.capacidad,req.params.cedula], function(err, rows) {
-        if (err) throw err;
-        resp.json(rows[0]);
-    });
-
-});
-*/
-app.post('/insertVehiculo/', function (req, resp) {
-    connection.query('CALL uspInsertarVehiculo(?,?,?,?,?)', [req.body.placa,req.body.marca,
-        req.body.tipoVehiculo, req.body.capacidad,req.body.cedChofer], function(err, rows) {
         if (err) throw err;
         resp.json(rows[0]);
     });
