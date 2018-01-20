@@ -76,7 +76,7 @@ app.get('/getMarcasVehiculo/', function (req, resp) {
 
 });
 
-app.get('/agregarDestino /', function (req, resp) {
+app.get('/agregarDestino/', function (req, resp) {
     resp.header("Access-Control-Allow-Origin", "*");
     resp.header("Access-Control-Allow-Headers", "X-Requested-With");
     connection.query('CALL uspInsertarDestino(?,?,?,?)', function(err, rows) {
