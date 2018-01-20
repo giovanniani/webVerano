@@ -10,7 +10,7 @@ var allowCrossDomain = function(req, res, next) {
 }
     
 var connection = mysql.createConnection({
-    host     : 'http://192.168.0.20',
+    host     : 'localhost',
     user     : 'root',
     password : 'root',
     database : 'servicioexcursiones'
