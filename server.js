@@ -49,8 +49,6 @@ app.get('/home', function(req, resp) {
 });
 */
 app.post('/insertVehiculo/', function (req, resp) {
-    resp.header("Access-Control-Allow-Origin", "*");
-    resp.header("Access-Control-Allow-Headers", "X-Requested-With");
     connection.query('CALL uspInsertarVehiculo(?,?,?,?,?)', [req.body.placa,req.body.marca,
         req.body.tipoVehiculo, req.body.capacidad,req.body.cedChofer], function(err, rows) {
         if (err) throw err;
