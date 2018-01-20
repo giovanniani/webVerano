@@ -37,7 +37,7 @@ app.get('/home', function(req, resp) {
 })
 
 
-app.get('/insertVehiculo/:placa/:marca/:tipo/:capacidad/:cedula', function (req, resp) {
+/*app.get('/insertVehiculo/:placa/:marca/:tipo/:capacidad/:cedula', function (req, resp) {
     resp.header("Access-Control-Allow-Origin", "*");
     resp.header("Access-Control-Allow-Headers", "X-Requested-With");
     connection.query('CALL uspInsertarVehiculo(?,?,?,?,?)', [req.params.placa,req.params.marca,req.params.tipo,
@@ -47,11 +47,23 @@ app.get('/insertVehiculo/:placa/:marca/:tipo/:capacidad/:cedula', function (req,
     });
 
 });
+*/
+app.post('/insertVehiculo/', function (req, resp) {
+    resp.header("Access-Control-Allow-Origin", "*");
+    resp.header("Access-Control-Allow-Headers", "X-Requested-With");
+    connection.query('CALL uspInsertarVehiculo(?,?,?,?,?)', [req.body.flotilla.placa,req.body.flotilla.marca,
+        req.body.flotilla.tipoVehiculo, req.body.flotilla.capacidad,req.body.flotilla.cedChofer], function(err, rows) {
+        if (err) throw err;
+        resp.json(rows[0]);
+    });
+
+});
+
 
 app.get('/insertCategoria/:nombre', function (req, resp) {
     resp.header("Access-Control-Allow-Origin", "*");
     resp.header("Access-Control-Allow-Headers", "X-Requested-With");
-    connection.query('CALL uspInsertarVehiculo(?)', [req.params.nombre], function(err, rows) {
+    connection.query('CALL uspInsertarCategoria(?)', [req.params.nombre], function(err, rows) {
         if (err) throw err;
         resp.json(rows[0]);
     });
@@ -59,6 +71,16 @@ app.get('/insertCategoria/:nombre', function (req, resp) {
 });
 
 app.get('/getCategoria/', function (req, resp) {
+    resp.header("Access-Control-Allow-Origin", "*");
+    resp.header("Access-Control-Allow-Headers", "X-Requested-With");
+    connection.query('CALL uspVerCategorias()', function(err, rows) {
+        if (err) throw err;
+        resp.json(rows[0]);
+    });
+
+});
+
+app.get('/', function (req, resp) {
     resp.header("Access-Control-Allow-Origin", "*");
     resp.header("Access-Control-Allow-Headers", "X-Requested-With");
     connection.query('CALL uspVerCategorias()', function(err, rows) {
